@@ -17,7 +17,7 @@ const Application = () => (
 
       <main className={styles.body}>
         <p>React Seed: a solid start!</p>
-        <input type="text" placeholder="wat"/>
+        <input type="text" placeholder=""/>
       </main>
     </div>
   </div>
