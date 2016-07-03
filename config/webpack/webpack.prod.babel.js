@@ -34,12 +34,17 @@ export default config({
     }),
     new ExtractTextPlugin('app.[hash].css'),
     new HtmlWebpackPlugin({
+      production: true,
       title:      pkg.description,
-      template:   './config/tmplate.html',
-      production: true
+      name:       pkg.name,
+      template:   './config/template.html'
     }),
     new OfflinePlugin({
-      AppCache: false
+      AppCache: false,
+
+      ServiceWorker: {
+        scope: `/${pkg.name}`
+      }
     })
   ]
 })

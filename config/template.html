@@ -7,5 +7,8 @@
   </head>
   <body>
     <div class="app" id="app"></div>
+    <%if (htmlWebpackPlugin.options.production) { %>
+    <script src="/<%= htmlWebpackPlugin.options.name %>/sw.js"></script>
+    <%}%>
   </body>
 </html>
