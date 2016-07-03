@@ -1,8 +1,9 @@
 {
   "name": "react-seed",
-  "description": "A React springboard",
+  "description": "React Seed",
   "version": "1.0.0",
   "author": "Oliver Turner <oliver.turner@codedsignal.co.uk>",
+  "repository": "git@github.com:oliverturner/react-seed.git",
   "dependencies": {
     "npm-run-all": "2.3.0",
     "react": "15.2.0",

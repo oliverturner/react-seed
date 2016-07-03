@@ -24,6 +24,8 @@
 - Use `webpack.{env}.babel.js` for automatic ES6 support
 - Use `modulesDirectories` to set resolve base
   - Use `NODE_PATH` for SSR
+- Performance
+  - Use `offline-plugin`... but don't forget to run `install`!
 
 ## React
 
