@@ -1,56 +1,78 @@
-import path              from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import pcssCssNext       from 'postcss-cssnext';
-import pcssNested        from 'postcss-nested';
-import pcssApply         from 'postcss-apply';
-import pcssReporter      from 'postcss-reporter';
+import path              from 'path'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import pcssCssNext       from 'postcss-cssnext'
 
 const extractForProduction = (loaders) =>
-  ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')));
+  ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
 
+const postCssDefaults = {
+  plugins:    [],
+  nextOpts:   {},
+  localIdent: ''
+}
 
-function makeConfig (options) {
-  let cssLoaders = `style!css?module&localIdentName=${options.localIdentName}!postcss`;
+function makeConfig ({
+  production,
+  externals = {},
+  preEntries = [],
+  plugins = [],
+  preloaders = [],
+  postcss = [],
+  loaders,
+  output,
+  devtool,
+  postcssOpts
+}) {
+  postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
 
-  if (options.production) {
-    cssLoaders = extractForProduction(cssLoaders);
+  let cssLoaders  = 'style!css!postcss'
+  let pcssLoaders = `style!css?module&localIdentName=${postcssOpts.localIdent}!postcss`
+
+  if (production) {
+    pcssLoaders = extractForProduction(pcssLoaders)
   }
 
   return {
+    devtool,
+    output,
+    externals,
+    plugins,
+
     entry: [
-      ...options.entry,
-      'sanitize.css/lib/sanitize.css',
+      ...preEntries,
       './src/index.js'
     ],
 
-    debug:   !options.production,
-    devtool: options.devtool,
-
-    output: options.output,
+    debug: !production,
 
     module: {
-      preLoaders: [],
-      loaders:    [
+      preloaders,
+
+      loaders: loaders || [
         {
           test:    /\.jsx?$/,
           loaders: ['babel'],
           include: path.join(process.cwd(), 'src')
         },
         {
-          test:   /\.p?css$/,
+          test:   /\.css$/,
           loader: cssLoaders
         },
         {
+          test:   /\.pcss$/,
+          loader: pcssLoaders
+        },
+        {
           test:   /\.png$/,
-          loader: 'url?limit=100000&mimetype=image/png',
+          loader: 'url?limit=100000&mimetype=image/png'
         },
         {
           test:   /\.svg$/,
-          loader: 'url?limit=100000&mimetype=image/svg+xml',
+          loader: 'url?limit=100000&mimetype=image/svg+xml'
         },
         {
           test:   /\.gif$/,
-          loader: 'url?limit=100000&mimetype=image/gif',
+          loader: 'url?limit=100000&mimetype=image/gif'
         },
         {
           test:   /\.jpg$/,
@@ -64,21 +86,16 @@ function makeConfig (options) {
       extensions:         ['', '.js', '.jsx']
     },
 
-    plugins: options.plugins,
-
     postcss: () => [
-      pcssApply,
-      pcssCssNext,
-      pcssNested,
-      pcssReporter({clearMessages: true})
-    ],
+      pcssCssNext(postcssOpts.nextOpts)
+    ].concat(postcssOpts.plugins),
 
     devServer: {
       noInfo:      true,
       port:        4000,
       contentBase: './public'
     }
-  };
+  }
 }
 
-export default makeConfig;
+export default makeConfig

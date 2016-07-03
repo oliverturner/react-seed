@@ -1,4 +1,4 @@
-const webpackConfig = require('../webpack/webpack.dev.babel.js');
+const webpackConfig = require('../webpack/webpack.dev.babel.js')
 
 function config (options) {
   const karmaConfig = {
@@ -9,7 +9,7 @@ function config (options) {
     files: [
       // This shim adds .bind to PhantomJS
       './phantomjs-shim.js',
-      '../src/**/__tests__/*.js',
+      '../src/**/__tests__/*.js'
     ],
 
     preprocessors: {
@@ -29,7 +29,7 @@ function config (options) {
       'karma-phantomjs-launcher',
       'karma-mocha-reporter'
     ]
-  };
+  }
 
   if (options.coverage) {
     // Needs to load first to prevent linting issues
@@ -37,11 +37,11 @@ function config (options) {
       {
         test:    /\.jsx?$/,
         exclude: /(__tests__|node_modules)/,
-        loader:  'isparta-instrumenter-loader',
+        loader:  'isparta-instrumenter-loader'
       }
-    ].concat(webpackConfig.module.preLoaders);
+    ].concat(webpackConfig.module.preLoaders)
 
-    karmaConfig.plugins.push('karma-coverage');
+    karmaConfig.plugins.push('karma-coverage')
 
     karmaConfig.coverageReporter = {
       dir:       '../coverage',
@@ -49,19 +49,19 @@ function config (options) {
         {type: 'text'},
         {type: 'html'}
       ]
-    };
+    }
 
-    karmaConfig.reporters.push('coverage');
+    karmaConfig.reporters.push('coverage')
   }
 
   if (options.notify) {
-    karmaConfig.reporters.push('notify');
-    karmaConfig.plugins.push('karma-notify-reporter');
+    karmaConfig.reporters.push('notify')
+    karmaConfig.plugins.push('karma-notify-reporter')
   }
 
-  karmaConfig.webpack = webpackConfig;
+  karmaConfig.webpack = webpackConfig
 
-  return karmaConfig;
+  return karmaConfig
 }
 
-module.exports = config;
+module.exports = config

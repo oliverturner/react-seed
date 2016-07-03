@@ -1,8 +1,9 @@
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
-import config from './config';
+import config from './config'
 
 export default config({
   production: true,
@@ -22,6 +23,7 @@ export default config({
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    new LodashModuleReplacementPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -34,4 +36,4 @@ export default config({
       production: true
     })
   ]
-});
+})

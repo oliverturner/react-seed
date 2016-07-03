@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {PropTypes} from 'react'
 
-import SubHeader from './subheader';
+import SubHeader from './subheader'
 
 /**
  * Import locally scoped styles using css-loader
@@ -8,13 +8,13 @@ import SubHeader from './subheader';
  *
  * More info: https://github.com/webpack/css-loader#local-scope
  */
-import styles from './styles.pcss';
+import styles from './styles.pcss'
 
 /**
  * Reference an image and get back a URL automatically via webpack.
  * webpack takes care of versioning, bundling for production, etc.
  */
-import logoURL from './images/react-logo.svg';
+import logoURL from './images/react-logo.svg'
 
 const Header = ({display, children}) => {
   return (<header className={styles.main}>
@@ -26,7 +26,12 @@ const Header = ({display, children}) => {
       }</h1>
       <SubHeader>Yet Another React Starter Kit</SubHeader>
     </div>
-  </header>);
-};
+  </header>)
+}
 
-export default Header;
+Header.propTypes = {
+  display:  PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired
+}
+
+export default Header

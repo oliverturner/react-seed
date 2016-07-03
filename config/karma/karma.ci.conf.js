@@ -1,10 +1,10 @@
-var karmaFactory = require('./make-karma-config.js');
+var karmaFactory = require('./make-karma-config.js')
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set(karmaFactory({
-    coverage: true,
+    coverage:          true,
     coverageReporters: [
-      {type: 'text'},
-    ],
-  }));
-};
+      {type: 'text'}
+    ]
+  }))
+}
