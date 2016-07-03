@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import OfflinePlugin from 'offline-plugin'
 
 import config from './config'
 import pkg from '../../package.json'
@@ -36,6 +37,7 @@ export default config({
       title:      pkg.description,
       template:   './config/tmplate.html',
       production: true
-    })
+    }),
+    new OfflinePlugin()
   ]
 })
