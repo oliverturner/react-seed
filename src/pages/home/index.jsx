@@ -10,14 +10,18 @@ import Header from 'components/header';
  */
 import styles from './styles.pcss';
 
+const counter = 2;
+
 const Application = () => (
   <div className={styles.main}>
     <div className={styles.wrap}>
-      <Header />
+      <Header display={counter %2 === 0}>
+        <p>w00t!</p>
+      </Header>
 
       <main className={styles.body}>
         <p>React Seed: a solid start!</p>
-        <input type="text" placeholder=""/>
+        <input type="text" placeholder="hurrah"/>
       </main>
     </div>
   </div>

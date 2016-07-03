@@ -16,12 +16,14 @@ import styles from './styles.pcss';
  */
 import logoURL from './images/react-logo.svg';
 
-const Header = () => {
+const Header = ({display, children}) => {
   return (<header className={styles.main}>
     <img className={styles.logo} src={logoURL} height="125" />
 
     <div className={styles.wrap}>
-      <h1 className={styles.title}>YARSK</h1>
+      <h1 className={styles.title}>{
+        display ? children : false
+      }</h1>
       <SubHeader>Yet Another React Starter Kit</SubHeader>
     </div>
   </header>);
