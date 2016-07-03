@@ -38,6 +38,8 @@ export default config({
       template:   './config/tmplate.html',
       production: true
     }),
-    new OfflinePlugin()
+    new OfflinePlugin({
+      AppCache: false
+    })
   ]
 })
