@@ -46,8 +46,8 @@
 
 ## Styling
 
-- Use co-located styles
-- Use global styles for layout & "dumb" components
+- Use co-located s
+- Use global s for layout & "dumb" components
 - Use "local-by-default" modules for "smart" components ("containers")
 - Reset: Sanitize.css
 
