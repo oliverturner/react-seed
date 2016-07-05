@@ -3,12 +3,12 @@ import React from 'react'
 import s from './styles.pcss'
 
 const Application = () => (
-  <div className={s.wrap}>
-    <main className={s.body}>
+  <main className={s.app}>
+    <div className={s.wrap}>
       <h1 className={s.title}>seed</h1>
       <a className={s.link} href="https://github.com/oliverturner/react-seed">source</a>
-    </main>
-  </div>
+    </div>
+  </main>
 )
 
 export default Application

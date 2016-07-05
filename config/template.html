@@ -6,7 +6,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <div class="app" id="app"></div>
+    <div id="mount-app"></div>
     <%if (htmlWebpackPlugin.options.production) { %>
     <script src="/<%= htmlWebpackPlugin.options.name %>/sw.js"></script>
     <%}%>

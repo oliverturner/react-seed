@@ -1,7 +1,16 @@
+.app {
+  display:          flex;
+  justify-content:  center;
+  align-items:      center;
+
+  height:           100vh;
+  background-image: linear-gradient(lemonchiffon, aquamarine);
+}
+
 .wrap {
   padding:       5px 20px;
-  width: 200px;
-  height: 200px;
+  width:         200px;
+  height:        200px;
   border:        1px solid currentColor;
   border-radius: 50%;
   text-align:    center;
@@ -23,11 +32,19 @@
 }
 
 .link {
+  transition:      color 0.5s, border-color 0.5s;
+
   display:         inline-block;
   margin-top:      10px;
-  padding:         2px 10px;
+  padding:         0 10px;
+  border:          1px solid transparent;
   border-radius:   3px;
   text-decoration: none;
   background:      mediumaquamarine;
   color:           rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    color:        white;
+    border-color: currentColor;
+  }
 }

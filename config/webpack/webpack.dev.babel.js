@@ -22,8 +22,8 @@ export default config({
     })
   ],
 
-  postcss: {
-    localIdent: '[path]-[local]-[hash:base64:5]',
+  postcssOpts: {
+    localIdent: '[path]-[local]',
     plugins:    [
       pcssReporter({clearMessages: true})
     ]
