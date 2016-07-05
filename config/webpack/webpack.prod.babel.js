@@ -40,7 +40,6 @@ export default config({
       template:   './config/template.html'
     }),
     new OfflinePlugin({
-      updateStrategy: 'changed',
       caches:         {
         main: ['index.html', 'app.*.css', 'app.*.js']
       },
