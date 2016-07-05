@@ -7,7 +7,7 @@ import pkg from '../../package.json'
 export default config({
   devtool: 'eval',
 
-  entry: ['react-hot-loader/patch'],
+  preEntries: ['react-hot-loader/patch'],
 
   output: {
     path:       './public',
@@ -18,7 +18,7 @@ export default config({
   plugins: [
     new HtmlWebpackPlugin({
       title:    pkg.description,
-      template: './config/tmplate.html'
+      template: './config/template.html'
     })
   ],
 

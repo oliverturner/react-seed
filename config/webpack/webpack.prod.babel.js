@@ -43,7 +43,7 @@ export default config({
       AppCache: false,
 
       ServiceWorker: {
-        scope: `/${pkg.name}`
+        scope: `/${pkg.name}/`
       }
     })
   ]
