@@ -40,6 +40,10 @@ export default config({
       template:   './config/template.html'
     }),
     new OfflinePlugin({
+      caches: {
+        main: ['index.html', 'app.*.css', 'app.*.js']
+      },
+
       AppCache: false,
 
       ServiceWorker: {
