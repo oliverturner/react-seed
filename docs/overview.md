@@ -2,7 +2,9 @@
 
 - include a .npmrc file in the root of your project:
 
-  ```save-exact=true```
+  ```
+  save-exact=true
+  ```
 
 - But... try to keep the project root as free of config clutter as possible
   - Integrate Babel config into package.json
