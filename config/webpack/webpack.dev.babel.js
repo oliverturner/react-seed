@@ -1,5 +1,6 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import pcssReporter      from 'postcss-reporter'
+import HtmlWebpackPlugin   from 'html-webpack-plugin'
+import pcssReporter        from 'postcss-reporter'
+import pcssBrowserReporter from 'postcss-browser-reporter'
 
 import config from './config'
 import pkg from '../../package.json'
@@ -22,10 +23,11 @@ export default config({
     })
   ],
 
-  postcss: {
-    localIdent: '[path]-[local]-[hash:base64:5]',
+  postcssOpts: {
+    localIdent: '[path]-[local]',
     plugins:    [
-      pcssReporter({clearMessages: true})
+      pcssReporter({clearMessages: true}),
+      pcssBrowserReporter()
     ]
   }
 })

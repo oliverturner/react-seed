@@ -7,7 +7,7 @@ import App from 'containers/home'
 import 'sanitize.css/sanitize.css'
 import 'styles/base.css'
 
-const rootEl = document.getElementById('app')
+const rootEl = document.getElementById('mount-app')
 
 ReactDOM.render(
   <AppContainer>

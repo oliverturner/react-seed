@@ -3,18 +3,12 @@ body {
   height: 100%
 }
 
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 h1,
 h2,
 h3 {
   margin: 0;
-}
-
-.app {
-  display:          flex;
-  justify-content:  center;
-  align-items:      center;
-
-  height:           100vh;
-  font-family:      "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(lemonchiffon, aquamarine);
 }
