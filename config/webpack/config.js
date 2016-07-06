@@ -2,13 +2,21 @@ import path              from 'path'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import pcssCssNext       from 'postcss-cssnext'
 
+import cssVars from '../../src/styles/variables'
+
 const extractForProduction = (loaders) =>
   ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
 
 const postCssDefaults = {
   plugins:    [],
-  nextOpts:   {},
-  localIdent: ''
+  localIdent: '',
+  nextOpts:   {
+    features: {
+      customProperties: {
+        variables: cssVars
+      }
+    }
+  }
 }
 
 function makeConfig ({
@@ -68,7 +76,7 @@ function makeConfig ({
         },
         {
           test:   /\.svg$/,
-          loader: 'url?limit=100000&mimetype=image/svg+xml'
+          loader: 'svg-inline'
         },
         {
           test:   /\.gif$/,
