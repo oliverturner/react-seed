@@ -1,8 +1,8 @@
-import path              from 'path'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import pcssCssNext       from 'postcss-cssnext'
+const path              = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const pcssCssNext       = require('postcss-cssnext')
 
-import cssVars from '../../src/styles/variables'
+const cssVars = require('../../src/styles/variables')
 
 const extractForProduction = (loaders) =>
   ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
@@ -90,8 +90,8 @@ function makeConfig ({
     },
 
     resolve: {
-      modulesDirectories: ['src', 'node_modules'],
-      extensions:         ['', '.js', '.jsx']
+      modules:    ['src', 'node_modules'],
+      extensions: ['', '.js', '.jsx']
     },
 
     postcss: () => [
@@ -106,4 +106,4 @@ function makeConfig ({
   }
 }
 
-export default makeConfig
+module.exports = makeConfig

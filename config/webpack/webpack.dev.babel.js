@@ -1,11 +1,11 @@
-import HtmlWebpackPlugin   from 'html-webpack-plugin'
-import pcssReporter        from 'postcss-reporter'
-import pcssBrowserReporter from 'postcss-browser-reporter'
+const HtmlWebpackPlugin   = require('html-webpack-plugin')
+const pcssReporter        = require('postcss-reporter')
+const pcssBrowserReporter = require('postcss-browser-reporter')
 
-import config from './config'
-import pkg from '../../package.json'
+const config = require('./config')
+const pkg    = require('../../package.json')
 
-export default config({
+module.exports = config({
   devtool: 'eval',
 
   preEntries: ['react-hot-loader/patch'],

@@ -1,13 +1,13 @@
-import webpack from 'webpack'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-import OfflinePlugin from 'offline-plugin'
+const webpack                       = require('webpack')
+const ExtractTextPlugin             = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin             = require('html-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const OfflinePlugin                 = require('offline-plugin')
 
-import config from './config'
-import pkg from '../../package.json'
+const config = require('./config')
+const pkg    = require('../../package.json')
 
-export default config({
+module.exports = config({
   production: true,
 
   localIdentName: '[hash:base64]',
