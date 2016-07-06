@@ -42,7 +42,7 @@
     "gh-pages": "0.11.0",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.22.0",
-    "image-webpack-loader": "1.8.0",
+    "husky": "0.11.4",
     "isparta": "4.0.0",
     "isparta-loader": "2.0.0",
     "json-loader": "0.5.4",
@@ -108,6 +108,7 @@
     "test": "npm run karma config/karma/karma.conf.babel.js -- --single-run",
     "test:ci": "npm run karma config/karma/karma.ci.conf.js -- --single-run",
     "test:coverage": "npm run karma config/karma/karma/.coverage.conf.js -- --single-run",
-    "test:watch": "npm run karma config/karma/karma.conf.js"
+    "test:watch": "npm run karma config/karma/karma.conf.js",
+    "precommit": "run-s lint:*"
   }
 }
