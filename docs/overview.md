@@ -70,7 +70,7 @@ Plugins:
 - Rewire is amazing :)
 
 - Patterns
-  - {component}/__tests__
+  - {component}/\__tests\__
 
 ## Server
 
