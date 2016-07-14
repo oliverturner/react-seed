@@ -7,27 +7,18 @@ import App from 'containers/home'
 import 'sanitize.css/sanitize.css'
 import 'styles/base.css'
 
-const rootEl = document.getElementById('mount-app')
+const renderApp = () =>
+  ReactDOM.render(
+    <AppContainer>
+      <App />
+    </AppContainer>,
+    document.getElementById('mount-app')
+  )
 
-ReactDOM.render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
-  rootEl
-)
+renderApp()
 
 if (module.hot) {
-  module.hot.accept('containers/home', () => {
-    // If you use Webpack 2 in ES modules mode, you can
-    // use <App /> here rather than require() a <NextApp />.
-    const NextApp = require('containers/home').default
-    ReactDOM.render(
-      <AppContainer>
-        <NextApp />
-      </AppContainer>,
-      rootEl
-    )
-  })
+  module.hot.accept('containers/home', renderApp)
 }
 
 if (process.env.NODE_ENV === 'production') {

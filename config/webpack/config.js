@@ -34,7 +34,7 @@ function makeConfig ({
   postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
 
   let cssLoaders  = 'style!css!postcss'
-  let pcssLoaders = `style!css?module&localIdentName=${postcssOpts.localIdent}!postcss`
+  let pcssLoaders = `style!css?module&sourceMap&localIdentName=${postcssOpts.localIdent}!postcss`
 
   if (production) {
     pcssLoaders = extractForProduction(pcssLoaders)
@@ -46,10 +46,12 @@ function makeConfig ({
     externals,
     plugins,
 
-    entry: [
-      ...preEntries,
-      './src/index.js'
-    ],
+    entry: {
+      app: [
+        ...preEntries,
+        './src/index.js'
+      ]
+    },
 
     debug: !production,
 

@@ -8,14 +8,14 @@ const config = require('./config')
 const pkg    = require('../../package.json')
 
 module.exports = config({
-  production: true,
-
+  production:     true,
+  devtool:        'source-map',
   localIdentName: '[hash:base64]',
 
   output: {
     path:       './dist',
     publicPath: '',
-    filename:   'app.[hash].js'
+    filename:   '[name].[hash].js'
   },
 
   plugins: [
@@ -25,14 +25,18 @@ module.exports = config({
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    // Uncomment for multi-chunk apps
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name:      'commons',
+    //   minChunks: Infinity
+    // }),
     new LodashModuleReplacementPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug:    false
     }),
-    new ExtractTextPlugin('app.[hash].css'),
+    new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
       production: true,
       title:      pkg.description,
