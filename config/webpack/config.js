@@ -73,20 +73,24 @@ function makeConfig ({
           loader: pcssLoaders
         },
         {
-          test:   /\.png$/,
-          loader: 'url?limit=100000&mimetype=image/png'
+          test:   /\.json$/,
+          loader: 'json'
         },
         {
           test:   /\.svg$/,
           loader: 'svg-inline'
         },
         {
-          test:   /\.gif$/,
-          loader: 'url?limit=100000&mimetype=image/gif'
+          test:   /\.jpg$/,
+          loader: 'url?limit=100000&mimetype=image/jpg'
         },
         {
-          test:   /\.jpg$/,
-          loader: 'file'
+          test:   /\.png$/,
+          loader: 'url?limit=100000&mimetype=image/png'
+        },
+        {
+          test:   /\.gif$/,
+          loader: 'url?limit=100000&mimetype=image/gif'
         }
       ]
     },
