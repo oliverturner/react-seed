@@ -3,6 +3,7 @@
   "description": "React Seed",
   "version": "1.0.0",
   "author": "Oliver Turner <oliver.turner@codedsignal.co.uk>",
+  "homepage": "https://github.com/oliverturner/react-seed",
   "repository": "git@github.com:oliverturner/react-seed.git",
   "dependencies": {
     "npm-run-all": "2.3.0",
