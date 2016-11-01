@@ -1,17 +1,16 @@
-const HtmlWebpackPlugin   = require('html-webpack-plugin')
-const pcssReporter        = require('postcss-reporter')
-const pcssBrowserReporter = require('postcss-browser-reporter')
+const path              = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./config')
 const pkg    = require('../../package.json')
 
-module.exports = config({
+const webpackConfig = config({
   devtool: 'eval',
 
   preEntries: ['react-hot-loader/patch'],
 
   output: {
-    path:       './public',
+    path:       path.join(process.cwd(), 'public'),
     publicPath: '/',
     filename:   'app.js'
   },
@@ -24,10 +23,8 @@ module.exports = config({
   ],
 
   postcssOpts: {
-    localIdent: '[path]-[local]',
-    plugins:    [
-      pcssReporter({clearMessages: true}),
-      pcssBrowserReporter()
-    ]
+    localIdent: '[path]-[local]'
   }
 })
+
+module.exports = webpackConfig

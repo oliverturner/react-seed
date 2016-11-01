@@ -6,8 +6,15 @@ module.exports = {
   env: {
     browser: true,
     node:    true,
-    mocha:   true,
     es6:     true
+  },
+
+  plugins: ['flowtype', 'import', 'react', 'jsx-a11y'],
+
+  parserOptions: {
+    ecmaVersion:  6,
+    sourceType:   'module',
+    ecmaFeatures: {jsx: true}
   },
 
   globals: {
@@ -20,14 +27,6 @@ module.exports = {
     afterEach:  true
   },
 
-  plugins: ['react', 'jsx-a11y'],
-
-  parserOptions: {
-    ecmaVersion:  6,
-    sourceType:   'module',
-    ecmaFeatures: {jsx: true}
-  },
-
   rules: {
     'brace-style':     [2, 'stroustrup', {allowSingleLine: true}],
     'key-spacing':     [2, {align: 'value'}],
@@ -35,6 +34,13 @@ module.exports = {
     'jsx-quotes':      [2, 'prefer-double'],
     'no-multi-spaces': 0,
     'spaced-comment':  [2, 'always', {exceptions: ['-', '*']}],
+
+    'flowtype/require-parameter-type':  [2, {'excludeArrowFunctions': 'expressionsOnly'}],
+    'flowtype/require-return-type':     [1, 'always', {'annotateUndefined': 'never'}],
+    'flowtype/space-after-type-colon':  [1, 'always'],
+    'flowtype/space-before-type-colon': [1, 'never'],
+    'flowtype/define-flow-type':        1,
+    'flowtype/use-flow-type':           1,
 
     'jsx-a11y/href-no-hash':                 2,
     'jsx-a11y/label-has-for':                2,

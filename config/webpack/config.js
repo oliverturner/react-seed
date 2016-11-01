@@ -1,50 +1,50 @@
-const path              = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const pcssCssNext       = require('postcss-cssnext')
+const path    = require('path')
+const webpack = require('webpack')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+//
+// const cssVars = require('../../src/styles/variables')
+//
+// const extractForProduction = (loaders) =>
+//   ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
 
-const cssVars = require('../../src/styles/variables')
-
-const extractForProduction = (loaders) =>
-  ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
-
-const postCssDefaults = {
-  plugins:    [],
-  localIdent: '',
-  nextOpts:   {
-    features: {
-      customProperties: {
-        variables: cssVars
-      }
-    }
-  }
-}
+// const postCssDefaults = {
+//   plugins:    [],
+//   localIdent: '',
+//   nextOpts:   {
+//     features: {
+//       customProperties: {
+//         variables: cssVars
+//       }
+//     }
+//   }
+// }
 
 function makeConfig ({
   production,
   externals = {},
   preEntries = [],
   plugins = [],
-  preloaders = [],
   postcss = [],
-  loaders,
   output,
   devtool,
   postcssOpts
 }) {
-  postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
+  // postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
 
-  let cssLoaders  = 'style!css!postcss'
-  let pcssLoaders = `style!css?module&sourceMap&localIdentName=${postcssOpts.localIdent}!postcss`
-
-  if (production) {
-    pcssLoaders = extractForProduction(pcssLoaders)
-  }
+  // let pcssLoaders = `style!css?module&sourceMap&localIdentName=${postcssOpts.localIdent}!postcss`
+  //
+  // if (production) {
+  //   pcssLoaders = extractForProduction(pcssLoaders)
+  // }
 
   return {
     devtool,
     output,
     externals,
-    plugins,
+    plugins: [
+      new webpack.NamedModulesPlugin(),
+      ...plugins
+    ],
 
     entry: {
       app: [
@@ -53,24 +53,39 @@ function makeConfig ({
       ]
     },
 
-    debug: !production,
-
     module: {
-      preloaders,
-
-      loaders: loaders || [
+      rules: [
         {
           test:    /\.jsx?$/,
-          loaders: ['babel'],
+          loader:  'babel',
           include: path.join(process.cwd(), 'src')
         },
         {
-          test:   /\.css$/,
-          loader: cssLoaders
+          test: /\.css$/,
+          use:  [
+            'style',
+            {
+              loader:  'css',
+              options: {importLoaders: 1}
+            },
+            'postcss'
+          ]
         },
         {
-          test:   /\.pcss$/,
-          loader: pcssLoaders
+          test: /\.pcss$/,
+          use:  [
+            'style',
+            {
+              loader:  'css',
+              options: {
+                module:         true,
+                sourceMap:      true,
+                localIdentName: postcssOpts.localIdent,
+                importLoaders:  1
+              }
+            },
+            'postcss'
+          ]
         },
         {
           test:   /\.json$/,
@@ -96,13 +111,9 @@ function makeConfig ({
     },
 
     resolve: {
-      modules:    ['src', 'node_modules'],
-      extensions: ['', '.js', '.jsx']
+      modules:    ['node_modules', 'src'],
+      extensions: ['.js', '.jsx']
     },
-
-    postcss: () => [
-      pcssCssNext(postcssOpts.nextOpts)
-    ].concat(postcssOpts.plugins),
 
     devServer: {
       noInfo:      true,

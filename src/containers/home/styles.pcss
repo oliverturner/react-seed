@@ -1,50 +1,54 @@
 @keyframes fadeInUp {
   0% {
-    opacity:   0;
-    transform: translate3d(-50%, -20%, 0);
+    opacity   : 0;
+    transform : translate3d(-50%, -20%, 0);
   }
 
   75% {
-    opacity: 1;
+    opacity : 1;
   }
 
   100% {
-    transform: translate3d(-50%, -50%, 0);
+    transform : translate3d(-50%, -50%, 0);
   }
 }
 
 .app {
-  position:         relative;
-  height:           100vh;
-  background-image: linear-gradient(to bottom, var(--tintGradientTop), var(--tintGradientBottom));
+  position         : relative;
+  height           : 100vh;
+  background-image : linear-gradient(to bottom, var(--tintGradientTop), var(--tintGradientBottom));
 }
 
 .wrap {
-  animation-name:      fadeInUp;
-  animation-fill-mode: forwards;
-  animation-duration:  3s;
+  animation-name      : fadeInUp;
+  animation-fill-mode : forwards;
+  animation-duration  : 3s;
 
-  position:            absolute;
-  left:                50%;
-  top:                 50%;
+  position            : absolute;
+  top                 : 50%;
+  left                : 50%;
 
-  text-align:      center;
+  text-align          : center;
+
+  @media (--break-med) {
+    text-align : center;
+  }
 }
 
 .link {
-  transition:      color 0.5s, border-color 0.5s;
+  transition      : color 0.5s, border-color 0.5s;
 
-  display:         inline-block;
-  margin:          10px auto 0;
-  padding:         0 10px;
-  border:          1px solid transparent;
-  border-radius:   3px;
-  text-decoration: none;
-  background:      var(--tintText);
-  color:           rgba(255, 255, 255, 0.75);
+  display         : inline-block;
+  margin          : 10px auto 0;
+  padding         : 0 10px;
+  border          : 1px solid transparent;
+  border-radius   : 3px;
+  text-decoration : none;
+  background      : var(--tintText);
+  color           : rgba(255, 255, 255, 0.75);
 
   &:hover {
-    color:        white;
-    border-color: currentColor;
+    border-color : currentColor;
+    color        : white;
   }
 }
