@@ -1,11 +1,11 @@
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack                       = require('webpack')
+const ExtractTextPlugin             = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin             = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
+const OfflinePlugin                 = require('offline-plugin')
 
 const configure = require('./config')
-const pkg = require('../../package.json')
+const pkg       = require('../../package.json')
 
 const config = {
   production: true,
@@ -17,10 +17,20 @@ const config = {
     filename:   '[name].[hash].js'
   },
 
+  resolve: {
+    alias: {
+      'react':     'preact-compat',
+      'react-dom': 'preact-compat'
+    }
+  },
+
   moduleRules: [
     {
-      test:   /\.pcss$/,
-      loader: ExtractTextPlugin.extract(['css?modules&sourcemap&importLoaders', 'postcss'])
+      test:   /\.(css|pcss)$/,
+      loader: ExtractTextPlugin.extract({
+        fallbackLoader: 'style',
+        loader:         ['css?modules&sourcemap&importLoaders', 'postcss']
+      })
       // TODO: Update when plugin uses new syntax
       // use:  [
       //   {
@@ -44,16 +54,20 @@ const config = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    new LodashModuleReplacementPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug:    false
+    }),
+    new webpack.optimize.DedupePlugin(),
     // Uncomment for multi-chunk apps
     // new webpack.optimize.CommonsChunkPlugin({
     //   name:      'commons',
     //   minChunks: Infinity
     // }),
-    new LodashModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug:    false
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {warnings: false},
+      comments: false
     }),
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
@@ -63,15 +77,13 @@ const config = {
       template:   './config/template.html'
     }),
     new OfflinePlugin({
-      caches: {
+      events:         true,
+      updateStrategy: 'all',
+      caches:         {
         main: ['index.html', 'app.*.css', 'app.*.js']
       },
 
-      AppCache: false,
-
-      ServiceWorker: {
-        scope: `/${pkg.name}/`
-      }
+      AppCache: false
     })
   ]
 }

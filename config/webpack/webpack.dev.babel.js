@@ -17,7 +17,7 @@ const config = {
 
   moduleRules: [
     {
-      test: /\.pcss$/,
+      test: /\.(css|pcss)$/,
       use:  [
         'style',
         {

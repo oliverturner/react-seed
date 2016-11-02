@@ -1,11 +1,11 @@
+import 'sanitize.css/sanitize.css'
+import 'styles/base.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 
 import App from 'containers/home'
-
-import 'sanitize.css/sanitize.css'
-import 'styles/base.css'
 
 const renderApp = () =>
   ReactDOM.render(

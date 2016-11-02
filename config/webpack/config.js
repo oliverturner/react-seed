@@ -23,6 +23,7 @@ function makeConfig ({
   externals = {},
   preEntries = [],
   plugins = [],
+  resolve = {},
   output,
   devtool,
   moduleRules
@@ -45,22 +46,10 @@ function makeConfig ({
 
     module: {
       rules: [
-        ...moduleRules,
         {
           test:    /\.jsx?$/,
           loader:  'babel',
           include: path.join(process.cwd(), 'src')
-        },
-        {
-          test: /\.css$/,
-          use:  [
-            'style',
-            {
-              loader:  'css',
-              options: {importLoaders: 1}
-            },
-            'postcss'
-          ]
         },
         {
           test:   /\.json$/,
@@ -81,14 +70,15 @@ function makeConfig ({
         {
           test:   /\.gif$/,
           loader: 'url?limit=100000&mimetype=image/gif'
-        }
+        },
+        ...moduleRules
       ]
     },
 
-    resolve: {
+    resolve: Object.assign({}, {
       modules:    ['node_modules', 'src'],
       extensions: ['.js', '.jsx']
-    },
+    }, resolve),
 
     devServer: {
       noInfo:      true,
