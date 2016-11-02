@@ -1,22 +1,41 @@
-const webpack                       = require('webpack')
-const ExtractTextPlugin             = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin             = require('html-webpack-plugin')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const OfflinePlugin                 = require('offline-plugin')
+const OfflinePlugin = require('offline-plugin')
 
-const config = require('./config')
-const pkg    = require('../../package.json')
+const configure = require('./config')
+const pkg = require('../../package.json')
 
-module.exports = config({
-  production:     true,
-  devtool:        'source-map',
-  localIdentName: '[hash:base64]',
+const config = {
+  production: true,
+  devtool:    'source-map',
 
   output: {
     path:       './dist',
     publicPath: '',
     filename:   '[name].[hash].js'
   },
+
+  moduleRules: [
+    {
+      test:   /\.pcss$/,
+      loader: ExtractTextPlugin.extract(['css?modules&sourcemap&importLoaders', 'postcss'])
+      // TODO: Update when plugin uses new syntax
+      // use:  [
+      //   {
+      //     loader:  'css',
+      //     options: {
+      //       module:         true,
+      //       sourceMap:      true,
+      //       localIdentName: '[hash:base64]',
+      //       importLoaders:  1
+      //     }
+      //   },
+      //   'postcss'
+      // ]
+    }
+  ],
 
   plugins: [
     // Important to keep React file size down
@@ -55,4 +74,6 @@ module.exports = config({
       }
     })
   ]
-})
+}
+
+module.exports = configure(config)

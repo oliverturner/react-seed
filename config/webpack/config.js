@@ -20,23 +20,13 @@ const webpack = require('webpack')
 // }
 
 function makeConfig ({
-  production,
   externals = {},
   preEntries = [],
   plugins = [],
-  postcss = [],
   output,
   devtool,
-  postcssOpts
+  moduleRules
 }) {
-  // postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
-
-  // let pcssLoaders = `style!css?module&sourceMap&localIdentName=${postcssOpts.localIdent}!postcss`
-  //
-  // if (production) {
-  //   pcssLoaders = extractForProduction(pcssLoaders)
-  // }
-
   return {
     devtool,
     output,
@@ -55,6 +45,7 @@ function makeConfig ({
 
     module: {
       rules: [
+        ...moduleRules,
         {
           test:    /\.jsx?$/,
           loader:  'babel',
@@ -67,22 +58,6 @@ function makeConfig ({
             {
               loader:  'css',
               options: {importLoaders: 1}
-            },
-            'postcss'
-          ]
-        },
-        {
-          test: /\.pcss$/,
-          use:  [
-            'style',
-            {
-              loader:  'css',
-              options: {
-                module:         true,
-                sourceMap:      true,
-                localIdentName: postcssOpts.localIdent,
-                importLoaders:  1
-              }
             },
             'postcss'
           ]

@@ -1,10 +1,10 @@
-const path              = require('path')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const config = require('./config')
-const pkg    = require('../../package.json')
+const configure = require('./config')
+const pkg = require('../../package.json')
 
-const webpackConfig = config({
+const config = {
   devtool: 'eval',
 
   preEntries: ['react-hot-loader/patch'],
@@ -15,16 +15,31 @@ const webpackConfig = config({
     filename:   'app.js'
   },
 
+  moduleRules: [
+    {
+      test: /\.pcss$/,
+      use:  [
+        'style',
+        {
+          loader:  'css',
+          options: {
+            module:         true,
+            sourceMap:      true,
+            localIdentName: '[path]-[local]',
+            importLoaders:  1
+          }
+        },
+        'postcss'
+      ]
+    }
+  ],
+
   plugins: [
     new HtmlWebpackPlugin({
       title:    pkg.description,
       template: './config/template.html'
     })
-  ],
+  ]
+}
 
-  postcssOpts: {
-    localIdent: '[path]-[local]'
-  }
-})
-
-module.exports = webpackConfig
+module.exports = configure(config)
