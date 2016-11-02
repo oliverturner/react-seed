@@ -1,9 +1,21 @@
-const features = require('./src/styles/variables')
+const variables = require('./src/styles/variables')
 
-module.exports = () => ({
+module.exports = (ctx) => ({
   plugins: {
-    'postcss-cssnext': {features},
-    'postcss-focus':   {}
+    'postcss-cssnext': {
+      features: {
+        customProperties: {
+          variables:       variables.palette,
+          preserve:        true,
+          appendVariables: true
+        },
+
+        customMedia: {
+          extensions: variables.breakpoints
+        }
+      }
+    },
+
+    'postcss-focus': {}
   }
 })
-

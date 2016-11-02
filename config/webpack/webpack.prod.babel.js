@@ -66,8 +66,9 @@ const config = {
     //   minChunks: Infinity
     // }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {warnings: false},
-      comments: false
+      compress:   {warnings: false},
+      comments:   false,
+      sourceMaps: false
     }),
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
