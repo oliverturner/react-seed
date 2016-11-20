@@ -1,118 +1,103 @@
-const path    = require('path')
+const path = require('path')
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
-//
-// const cssVars = require('../../src/styles/variables')
-//
-// const extractForProduction = (loaders) =>
-//   ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-// const postCssDefaults = {
-//   plugins:    [],
-//   localIdent: '',
-//   nextOpts:   {
-//     features: {
-//       customProperties: {
-//         variables: cssVars
-//       }
-//     }
-//   }
-// }
+const appRoot = path.join(__dirname, '../../')
 
-function makeConfig ({
-  production,
-  externals = {},
+function makeConfig({
   preEntries = [],
   plugins = [],
-  postcss = [],
+  resolve = {},
   output,
   devtool,
   postcssOpts
 }) {
-  // postcssOpts = Object.assign({}, postCssDefaults, postcssOpts)
+  const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
-  // let pcssLoaders = `style!css?module&sourceMap&localIdentName=${postcssOpts.localIdent}!postcss`
-  //
-  // if (production) {
-  //   pcssLoaders = extractForProduction(pcssLoaders)
-  // }
+  const cssLoaderOpts = {
+    module:         true,
+    sourceMap:      true,
+    localIdentName: postcssOpts.localIdent,
+    importLoaders:  1
+  }
+
+  const pcssRules = {
+    development: {
+      test: /\.pcss$/,
+      use:  [
+        {loader: 'style-loader'},
+        {loader: 'css-loader', options: cssLoaderOpts},
+        {loader: 'postcss-loader'}
+      ]
+    },
+    production: {
+      test:   /\.pcss$/,
+      loader: ExtractTextPlugin.extract({
+        fallbackLoader: 'style-loader',
+        loader:         [
+          {loader: 'css-loader', options: cssLoaderOpts},
+          {loader: 'postcss-loader'}
+        ]
+      })
+    }
+  }
 
   return {
     devtool,
     output,
-    externals,
-    plugins: [
-      new webpack.NamedModulesPlugin(),
-      ...plugins
-    ],
+    plugins: [new webpack.NamedModulesPlugin(), ...plugins],
 
     entry: {
       app: [
         ...preEntries,
-        './src/index.js'
+        './src/index.jsx'
       ]
     },
+
+    resolve: Object.assign({}, {
+      modules:    ['node_modules', 'src'],
+      extensions: ['.js', '.jsx']
+    }, resolve),
 
     module: {
       rules: [
         {
           test:    /\.jsx?$/,
-          loader:  'babel',
-          include: path.join(process.cwd(), 'src')
+          loader:  'babel-loader',
+          include: [
+            path.join(appRoot, 'src'),
+            path.join(appRoot, 'node_modules/preact-compat')
+          ]
         },
         {
           test: /\.css$/,
           use:  [
-            'style',
-            {
-              loader:  'css',
-              options: {importLoaders: 1}
-            },
-            'postcss'
-          ]
-        },
-        {
-          test: /\.pcss$/,
-          use:  [
-            'style',
-            {
-              loader:  'css',
-              options: {
-                module:         true,
-                sourceMap:      true,
-                localIdentName: postcssOpts.localIdent,
-                importLoaders:  1
-              }
-            },
-            'postcss'
+            {loader: 'style-loader'},
+            {loader: 'css-loader', options: {importLoaders: 1}},
+            {loader: 'postcss-loader'}
           ]
         },
         {
           test:   /\.json$/,
-          loader: 'json'
+          loader: 'json-loader'
         },
         {
           test:   /\.svg$/,
-          loader: 'svg-inline'
+          loader: 'svg-inline-loader'
         },
         {
           test:   /\.jpg$/,
-          loader: 'url?limit=100000&mimetype=image/jpg'
+          loader: 'url-loader?limit=100000&mimetype=image/jpg'
         },
         {
           test:   /\.png$/,
-          loader: 'url?limit=100000&mimetype=image/png'
+          loader: 'url-loader?limit=100000&mimetype=image/png'
         },
         {
           test:   /\.gif$/,
-          loader: 'url?limit=100000&mimetype=image/gif'
+          loader: 'url-loader?limit=100000&mimetype=image/gif'
         }
-      ]
-    },
-
-    resolve: {
-      modules:    ['node_modules', 'src'],
-      extensions: ['.js', '.jsx']
+      ].concat(pcssRules[env])
     },
 
     devServer: {

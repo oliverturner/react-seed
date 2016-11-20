@@ -5,6 +5,10 @@ const config = require('./config')
 const pkg    = require('../../package.json')
 
 const webpackConfig = config({
+  postcssOpts: {
+    localIdent: '[path]-[local]'
+  },
+
   devtool: 'eval',
 
   preEntries: ['react-hot-loader/patch'],
@@ -20,11 +24,7 @@ const webpackConfig = config({
       title:    pkg.description,
       template: './config/template.html'
     })
-  ],
-
-  postcssOpts: {
-    localIdent: '[path]-[local]'
-  }
+  ]
 })
 
 module.exports = webpackConfig

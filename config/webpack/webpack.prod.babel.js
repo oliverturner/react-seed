@@ -8,14 +8,24 @@ const config = require('./config')
 const pkg    = require('../../package.json')
 
 module.exports = config({
-  production:     true,
-  devtool:        'source-map',
-  localIdentName: '[hash:base64]',
+  postcssOpts: {
+    localIdent: null
+  },
+
+  production: true,
+  devtool:    'source-map',
 
   output: {
     path:       './dist',
     publicPath: '',
     filename:   '[name].[hash].js'
+  },
+
+  resolve: {
+    alias: {
+      react:       'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   },
 
   plugins: [
@@ -26,12 +36,13 @@ module.exports = config({
       }
     }),
     // Uncomment for multi-chunk apps
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name:      'commons',
-    //   minChunks: Infinity
-    // }),
+    /*
+     new webpack.optimize.CommonsChunkPlugin({
+     name:      'commons',
+     minChunks: Infinity
+     },
+     */
     new LodashModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug:    false

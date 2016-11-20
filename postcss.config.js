@@ -1,24 +1,21 @@
-module.exports = (ctx) => ({
+const props = require('./src/styles/variables')
+
+module.exports = () => ({
   plugins: {
     'postcss-cssnext': {
       features: {
         customProperties: {
-          variables:       {
-            "tintGradientTop":    "lemonchiffon",
-            "tintGradientBottom": "aquamarine",
-            "tintText":           "mediumaquamarine"
-          },
+          variables:       props.palette,
           preserve:        true,
           appendVariables: true
         },
+
         customMedia: {
-          extensions: {
-            "break-med":   '(min-width: 768px)',
-            "break-large": '(min-width: 960px)'
-          }
+          extensions: props.breakpoints
         }
       }
     },
-    'postcss-focus':   {}
+
+    'postcss-focus': {}
   }
 })
