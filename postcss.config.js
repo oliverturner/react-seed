@@ -1,6 +1,6 @@
 const variables = require('./src/styles/variables')
 
-module.exports = (ctx) => ({
+module.exports = () => ({
   plugins: {
     'postcss-cssnext': {
       features: {
