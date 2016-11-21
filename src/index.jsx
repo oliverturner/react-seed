@@ -1,18 +1,18 @@
+import 'sanitize.css/sanitize.css'
+import 'styles/base.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 
 import App from 'containers/home'
 
-import 'sanitize.css/sanitize.css'
-import 'styles/base.css'
-
 const renderApp = () => {
   ReactDOM.render(
     <AppContainer>
       <App />
     </AppContainer>,
-    document.getElementById('mount-app')
+    document.getElementById('root')
   )
 }
 
@@ -23,5 +23,10 @@ if (module.hot) {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install() // eslint-disable-line
+  const runtime = require('offline-plugin/runtime') // eslint-disable-line
+
+  runtime.install({
+    onUpdateReady: () => { runtime.applyUpdate() },
+    onUpdated:     () => { window.location.reload() }
+  })
 }

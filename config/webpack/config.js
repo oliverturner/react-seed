@@ -1,10 +1,10 @@
-const path = require('path')
-const webpack = require('webpack')
+const path              = require('path')
+const webpack           = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const appRoot = path.join(__dirname, '../../')
 
-function makeConfig({
+function makeConfig ({
   preEntries = [],
   plugins = [],
   resolve = {},
@@ -15,7 +15,7 @@ function makeConfig({
   const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
   const cssLoaderOpts = {
-    module:         true,
+    modules:        true,
     sourceMap:      true,
     localIdentName: postcssOpts.localIdent,
     importLoaders:  1
@@ -23,19 +23,22 @@ function makeConfig({
 
   const pcssRules = {
     development: {
-      test: /\.pcss$/,
+      test: /\.(css|pcss)$/,
       use:  [
         {loader: 'style-loader'},
         {loader: 'css-loader', options: cssLoaderOpts},
         {loader: 'postcss-loader'}
       ]
     },
+
     production: {
-      test:   /\.pcss$/,
+      test:   /\.(css|pcss)$/,
       loader: ExtractTextPlugin.extract({
         fallbackLoader: 'style-loader',
         loader:         [
-          {loader: 'css-loader', options: cssLoaderOpts},
+          // TODO: restore this once ExtractTextPlugin is updated
+          // {loader: 'css-loader', options: cssLoaderOpts},
+          {loader: 'css-loader', query: cssLoaderOpts},
           {loader: 'postcss-loader'}
         ]
       })
@@ -67,14 +70,6 @@ function makeConfig({
           include: [
             path.join(appRoot, 'src'),
             path.join(appRoot, 'node_modules/preact-compat')
-          ]
-        },
-        {
-          test: /\.css$/,
-          use:  [
-            {loader: 'style-loader'},
-            {loader: 'css-loader', options: {importLoaders: 1}},
-            {loader: 'postcss-loader'}
           ]
         },
         {

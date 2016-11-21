@@ -14,10 +14,11 @@ module.exports = {
   rules: {
     'arrow-parens':         [2, 'always'],
     semi:                   [2, 'never'],
-    'comma-dangle':         0,
+    'comma-dangle':         [2, 'never'],
     'key-spacing':          [2, {align: 'value'}],
     'no-multi-spaces':      0,
     'object-curly-spacing': [2, 'never'],
+    'space-before-function-paren': [2, 'always'],
 
     'import/extensions':                 [2, 'never', extensions],
     'import/no-extraneous-dependencies': 0

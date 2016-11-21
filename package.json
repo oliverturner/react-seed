@@ -9,7 +9,7 @@
     "npm-run-all": "3.1.1",
     "react": "15.4.0",
     "react-dom": "15.4.0",
-    "react-hot-loader": "3.0.0-beta.2"
+    "react-hot-loader": "3.0.0-beta.6"
   },
   "devDependencies": {
     "autoprefixer": "6.5.3",
@@ -25,9 +25,9 @@
     "eslint": "3.10.2",
     "eslint-config-airbnb": "13.0.0",
     "eslint-import-resolver-webpack": "0.7.0",
-    "eslint-plugin-import": "2.1.0",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "6.6.0",
+    "eslint-plugin-react": "^6.7.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "0.9.0",
     "gh-pages": "0.12.0",
@@ -61,12 +61,12 @@
     "clean": "rimraf dist",
     "copy": "copyfiles -u 1 public/**/* dist",
     "prebuild": "run-s clean copy",
-    "build": "webpack --env.prod -p --config config/webpack/webpack.prod.babel.js",
+    "build": "cross-env NODE_ENV=production webpack --env.prod -p --config config/webpack/webpack.prod.babel.js",
     "karma": "cross-env NODE_ENV=test karma start",
     "lint": "run-s lint:*",
     "lint:css": "stylelint --config config/linters/.stylelintrc.js ./src/**/*.{pcss,scss,css}",
     "lint:js": "eslint --config ./config/linters/.eslintrc.js --ext .jsx --ext .js ./src ./config",
-    "start": "webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
     "test": "echo nope",
     "precommit": "npm run lint"
   }
