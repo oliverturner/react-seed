@@ -1,13 +1,17 @@
-const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack                       = require('webpack')
+const ExtractTextPlugin             = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin             = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
+const OfflinePlugin                 = require('offline-plugin')
 
-const configure = require('./config')
-const pkg = require('../../package.json')
+const config = require('./config')
+const pkg    = require('../../package.json')
 
-const config = {
+module.exports = config({
+  postcssOpts: {
+    localIdent: null
+  },
+
   production: true,
   devtool:    'source-map',
 
@@ -17,25 +21,12 @@ const config = {
     filename:   '[name].[hash].js'
   },
 
-  moduleRules: [
-    {
-      test:   /\.pcss$/,
-      loader: ExtractTextPlugin.extract(['css?modules&sourcemap&importLoaders', 'postcss'])
-      // TODO: Update when plugin uses new syntax
-      // use:  [
-      //   {
-      //     loader:  'css',
-      //     options: {
-      //       module:         true,
-      //       sourceMap:      true,
-      //       localIdentName: '[hash:base64]',
-      //       importLoaders:  1
-      //     }
-      //   },
-      //   'postcss'
-      // ]
+  resolve: {
+    alias: {
+      react:       'preact-compat',
+      'react-dom': 'preact-compat'
     }
-  ],
+  },
 
   plugins: [
     // Important to keep React file size down
@@ -45,12 +36,13 @@ const config = {
       }
     }),
     // Uncomment for multi-chunk apps
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name:      'commons',
-    //   minChunks: Infinity
-    // }),
+    /*
+     new webpack.optimize.CommonsChunkPlugin({
+     name:      'commons',
+     minChunks: Infinity
+     },
+     */
     new LodashModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug:    false
@@ -74,6 +66,4 @@ const config = {
       }
     })
   ]
-}
-
-module.exports = configure(config)
+})

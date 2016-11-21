@@ -7,13 +7,14 @@ import App from 'containers/home'
 import 'sanitize.css/sanitize.css'
 import 'styles/base.css'
 
-const renderApp = () =>
+const renderApp = () => {
   ReactDOM.render(
     <AppContainer>
       <App />
     </AppContainer>,
     document.getElementById('mount-app')
   )
+}
 
 renderApp()
 
@@ -22,5 +23,5 @@ if (module.hot) {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install()
+  require('offline-plugin/runtime').install() // eslint-disable-line
 }
