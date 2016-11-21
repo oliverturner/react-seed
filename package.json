@@ -70,6 +70,8 @@
     "lint:js": "eslint --config ./config/linters/.eslintrc.js --ext .jsx --ext .js ./src ./config",
     "start": "cross-env NODE_ENV=development webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
     "test": "echo nope",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "deploy": "run-s build deploy:*",
+    "deploy:push": "gh-pages -d dist"
   }
 }

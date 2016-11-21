@@ -55,15 +55,12 @@ module.exports = config({
       template:   './config/template.html'
     }),
     new OfflinePlugin({
-      // caches: {
-      //   main: ['app.*.css', 'app.*.js']
-      // },
-
       AppCache: false,
 
       ServiceWorker: {
-        events: true,
-        scope:  `/${pkg.name}/`
+        events: true
+        // Required for running somewhere other than root
+        // scope:  `/${pkg.name}/`
       }
     })
   ]
