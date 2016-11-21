@@ -7,9 +7,6 @@
     <link rel="icon" href="favicon.ico" />
   </head>
   <body>
-    <div id="mount-app"></div>
-    <%if (htmlWebpackPlugin.options.production) { %>
-    <script src="/<%= htmlWebpackPlugin.options.name %>/sw.js"></script>
-    <%}%>
+    <div id="root"></div>
   </body>
 </html>

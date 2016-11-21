@@ -1,16 +1,14 @@
 {
   "presets": [
-    ["es2015", {"modules": false}],
+    ["es2015", { "modules": false }],
     "react",
     "stage-0"
   ],
   "plugins": [
-    "react-hot-loader/babel",
-    "transform-class-properties"
+    "react-hot-loader/babel"
   ],
   "env": {
     "production": {
-      "presets": ["react-optimize"],
       "plugins": ["lodash"]
     }
   }

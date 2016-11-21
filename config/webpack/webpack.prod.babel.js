@@ -4,10 +4,14 @@ const HtmlWebpackPlugin             = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const OfflinePlugin                 = require('offline-plugin')
 
-const configure = require('./config')
-const pkg       = require('../../package.json')
+const config = require('./config')
+const pkg    = require('../../package.json')
 
-const config = {
+module.exports = config({
+  postcssOpts: {
+    localIdent: null
+  },
+
   production: true,
   devtool:    'source-map',
 
@@ -19,33 +23,10 @@ const config = {
 
   resolve: {
     alias: {
-      'react':     'preact-compat',
+      react:       'preact-compat',
       'react-dom': 'preact-compat'
     }
   },
-
-  moduleRules: [
-    {
-      test:   /\.(css|pcss)$/,
-      loader: ExtractTextPlugin.extract({
-        fallbackLoader: 'style',
-        loader:         ['css?modules&sourcemap&importLoaders', 'postcss']
-      })
-      // TODO: Update when plugin uses new syntax
-      // use:  [
-      //   {
-      //     loader:  'css',
-      //     options: {
-      //       module:         true,
-      //       sourceMap:      true,
-      //       localIdentName: '[hash:base64]',
-      //       importLoaders:  1
-      //     }
-      //   },
-      //   'postcss'
-      // ]
-    }
-  ],
 
   plugins: [
     // Important to keep React file size down
@@ -54,21 +35,17 @@ const config = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    // Uncomment for multi-chunk apps
+    /*
+     new webpack.optimize.CommonsChunkPlugin({
+     name:      'commons',
+     minChunks: Infinity
+     },
+     */
     new LodashModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug:    false
-    }),
-    new webpack.optimize.DedupePlugin(),
-    // Uncomment for multi-chunk apps
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name:      'commons',
-    //   minChunks: Infinity
-    // }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress:   {warnings: false},
-      comments:   false,
-      sourceMaps: false
     }),
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
@@ -78,15 +55,13 @@ const config = {
       template:   './config/template.html'
     }),
     new OfflinePlugin({
-      events:         true,
-      updateStrategy: 'all',
-      caches:         {
-        main: ['index.html', 'app.*.css', 'app.*.js']
-      },
+      AppCache: false,
 
-      AppCache: false
+      ServiceWorker: {
+        events: true
+        // Required for running somewhere other than root
+        // scope:  `/${pkg.name}/`
+      }
     })
   ]
-}
-
-module.exports = configure(config)
+})
