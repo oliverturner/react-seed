@@ -1,0 +1,14 @@
+[ignore]
+
+[include]
+node_modules
+
+[libs]
+config/flow
+
+[options]
+module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=node_modules
+
+module.file_ext=.pcss
+module.file_ext=.svg

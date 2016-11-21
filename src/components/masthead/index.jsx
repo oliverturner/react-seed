@@ -1,12 +1,16 @@
-import React, {PropTypes} from 'react'
+// @flow
+
+import React from 'react'
 import InlineSVG from 'svg-inline-react'
 
-import logo from 'assets/icons/leaf.svg'
+import logo from '../../assets/icons/leaf.svg'
 import s from './styles.pcss'
 
-const Masthead = ({children}) => {
-  console.log('sourcemaps')
+type Props = {
+  children: React$Element<*>
+}
 
+const Masthead = ({children}: Props): React$Element<*> => {
   return (
     <header className={s.masthead}>
       <h1 className={s.masthead__title}>{children}</h1>
@@ -16,10 +20,6 @@ const Masthead = ({children}) => {
       </a>
     </header>
   )
-}
-
-Masthead.propTypes = {
-  children: PropTypes.node.isRequired
 }
 
 export default Masthead

@@ -1,23 +1,5 @@
 const path    = require('path')
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
-//
-// const cssVars = require('../../src/styles/variables')
-//
-// const extractForProduction = (loaders) =>
-//   ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')))
-
-// const postCssDefaults = {
-//   plugins:    [],
-//   localIdent: '',
-//   nextOpts:   {
-//     features: {
-//       customProperties: {
-//         variables: cssVars
-//       }
-//     }
-//   }
-// }
 
 function makeConfig ({
   externals = {},

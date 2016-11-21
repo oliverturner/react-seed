@@ -1,13 +1,15 @@
+// @flow
+
 import 'sanitize.css/sanitize.css'
-import 'styles/base.css'
+import './styles/base.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 
-import App from 'containers/home'
+import App from './containers/home'
 
-const renderApp = () =>
+const renderApp = (): React$Element<*> =>
   ReactDOM.render(
     <AppContainer>
       <App />
@@ -18,7 +20,7 @@ const renderApp = () =>
 renderApp()
 
 if (module.hot) {
-  module.hot.accept('containers/home', renderApp)
+  module.hot.accept('./containers/home', renderApp)
 }
 
 if (process.env.NODE_ENV === 'production') {

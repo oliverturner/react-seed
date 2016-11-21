@@ -1,8 +1,8 @@
-const path = require('path')
+const path              = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const configure = require('./config')
-const pkg = require('../../package.json')
+const pkg       = require('../../package.json')
 
 const config = {
   devtool: 'eval',
