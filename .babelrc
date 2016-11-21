@@ -1,14 +1,14 @@
 {
-  "presets": ["react", "latest"],
+  "presets": [
+    ["es2015", { "modules": false }],
+    "react",
+    "stage-0"
+  ],
   "plugins": [
     "react-hot-loader/babel"
   ],
   "env": {
     "production": {
-      "presets": [
-        "react",
-        ["latest", { "modules": false }]
-      ],
       "plugins": ["lodash"]
     }
   }
