@@ -58,9 +58,8 @@ module.exports = config({
       AppCache: false,
 
       ServiceWorker: {
+        // Listen for updates to resources
         events: true
-        // Required for running somewhere other than root
-        // scope:  `/${pkg.name}/`
       }
     })
   ]
