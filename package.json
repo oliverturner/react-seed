@@ -66,7 +66,7 @@
     "lint:css": "stylelint --config config/linters/.stylelintrc.js ./src/**/*.{pcss,scss,css}",
     "lint:js": "eslint --config ./config/linters/.eslintrc.js --ext .jsx --ext .js ./src ./config",
     "start": "cross-env NODE_ENV=development webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
-    "test": "Choose your own adventure! Jest is nice...",
+    "test": "echo 'Choose your own adventure! Jest is nice...'",
     "precommit": "npm run lint",
     "deploy": "run-s build deploy:*",
     "deploy:push": "gh-pages -d dist"
