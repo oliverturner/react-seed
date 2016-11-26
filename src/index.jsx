@@ -26,6 +26,14 @@ if (process.env.NODE_ENV === 'production') {
   const runtime = require('offline-plugin/runtime') // eslint-disable-line
 
   runtime.install({
+    onInstalled: () => {
+      console.log('SW Event:', 'initialised: app is offline-enabled')
+    },
+
+    onUpdating: () => {
+      console.log('SW Event:', 'updating')
+    },
+
     onUpdateReady: () => {
       console.log('SW Event:', 'onUpdateReady')
 
@@ -38,6 +46,10 @@ if (process.env.NODE_ENV === 'production') {
 
       // Reload page to load the new version
       window.location.reload()
+    },
+
+    onUpdateFailed: () => {
+      console.log('SW Event:', 'onUpdateFailed')
     }
   })
 }

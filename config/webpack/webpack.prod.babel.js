@@ -60,8 +60,11 @@ module.exports = config({
 
     // Listen for updates to resources
     new OfflinePlugin({
-      AppCache:      false,
-      ServiceWorker: {events: true}
+      updateStrategy: 'all',
+      AppCache:       false,
+      ServiceWorker:  {
+        events: true
+      }
     })
   ]
 })
