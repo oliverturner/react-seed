@@ -3,9 +3,14 @@ const ExtractTextPlugin             = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin             = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const OfflinePlugin                 = require('offline-plugin')
+const FaviconsWebpackPlugin         = require('favicons-webpack-plugin')
 
-const config = require('./config')
-const pkg    = require('../../package.json')
+// const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
+// const paths = ['/']
+
+const config  = require('./config')
+const pkg     = require('../../package.json')
+const palette = require('../../src/styles/variables').palette
 
 module.exports = config({
   postcssOpts: {
@@ -18,7 +23,7 @@ module.exports = config({
   output: {
     path:       './dist',
     publicPath: '',
-    filename:   '[name].[hash].js'
+    filename:   '[name].js'
   },
 
   resolve: {
@@ -35,32 +40,33 @@ module.exports = config({
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    // Uncomment for multi-chunk apps
-    /*
-     new webpack.optimize.CommonsChunkPlugin({
-     name:      'commons',
-     minChunks: Infinity
-     },
-     */
+
     new LodashModuleReplacementPlugin(),
+
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug:    false
     }),
-    new ExtractTextPlugin('[name].[hash].css'),
+
+    new ExtractTextPlugin('[name].css'),
+
+    new FaviconsWebpackPlugin({
+      logo:       './src/assets/images/logo.png',
+      prefix:     'icons/',
+      background: palette.primary
+    }),
+
     new HtmlWebpackPlugin({
+      inject:     false, // Need to use async attribute for JS
       production: true,
       title:      pkg.description,
-      name:       pkg.name,
-      template:   './config/template.html'
+      template:   './src/index.html'
     }),
-    new OfflinePlugin({
-      AppCache: false,
 
-      ServiceWorker: {
-        // Listen for updates to resources
-        events: true
-      }
+    // Listen for updates to resources
+    new OfflinePlugin({
+      AppCache:      false,
+      ServiceWorker: {events: true}
     })
   ]
 })
