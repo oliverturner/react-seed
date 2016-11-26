@@ -1,0 +1,22 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Seed",
+  "scope": "/",
+  "display": "browser",
+  "start_url": "/",
+  "short_name": "Seed",
+  "theme_color": "mediumaquamarine",
+  "description": "",
+  "orientation": "any",
+  "background_color": "mediumaquamarine",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://seed.codedsignal.co.uk/favicon.ico",
+      "type": "image/png",
+      "sizes": "50x50"
+    }
+  ]
+}
