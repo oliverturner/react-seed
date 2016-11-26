@@ -51,10 +51,8 @@ function makeConfig ({
     plugins: [new webpack.NamedModulesPlugin(), ...plugins],
 
     entry: {
-      app: [
-        ...preEntries,
-        './src/index.jsx'
-      ]
+      app:    [...preEntries, './src/index.jsx'],
+      static: ['./src/static.jsx']
     },
 
     resolve: Object.assign({}, {

@@ -1,12 +1,11 @@
 const webpack                       = require('webpack')
 const ExtractTextPlugin             = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin             = require('html-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const OfflinePlugin                 = require('offline-plugin')
 const FaviconsWebpackPlugin         = require('favicons-webpack-plugin')
+const StaticSiteGeneratorPlugin     = require('static-site-generator-webpack-plugin')
 
-// const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
-// const paths = ['/']
+const paths = ['/']
 
 const config  = require('./config')
 const pkg     = require('../../package.json')
@@ -21,9 +20,10 @@ module.exports = config({
   devtool:    'source-map',
 
   output: {
-    path:       './dist',
-    publicPath: '',
-    filename:   '[name].js'
+    path:          './dist',
+    publicPath:    '',
+    filename:      '[name].js',
+    libraryTarget: 'umd' // required by StaticSiteGeneratorPlugin
   },
 
   resolve: {
@@ -56,12 +56,7 @@ module.exports = config({
       background: palette.primary
     }),
 
-    new HtmlWebpackPlugin({
-      inject:     false, // Need to use async attribute for JS
-      production: true,
-      title:      pkg.description,
-      template:   './src/index.html'
-    }),
+    new StaticSiteGeneratorPlugin('static', paths, {title: pkg.description}),
 
     // Listen for updates to resources
     new OfflinePlugin({

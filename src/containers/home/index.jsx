@@ -12,7 +12,7 @@ const Application = () => (
       <Masthead>seed</Masthead>
       <a className={s.link} href={homepage}>
         <InlineSVG src={icon} />
-        Fork me on Github
+        Fork me on Github!
       </a>
     </div>
   </main>

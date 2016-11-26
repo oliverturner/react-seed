@@ -60,17 +60,19 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
+    "test": "echo 'Choose your own adventure! Jest is nice...'",
     "clean": "rimraf dist",
     "copy": "copyfiles -u 1 public/**/* dist",
     "lint": "run-s lint:*",
     "lint:css": "stylelint --config config/linters/.stylelintrc.js ./src/**/*.{pcss,scss,css}",
     "lint:js": "eslint --config ./config/linters/.eslintrc.js --ext .jsx --ext .js ./src ./config",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
-    "test": "echo 'Choose your own adventure! Jest is nice...'",
-    "build": "cross-env NODE_ENV=production webpack --env.prod -p --config config/webpack/webpack.prod.babel.js",
+    "webpack:dev": "cross-env NODE_ENV=development webpack-dev-server --env.dev --config config/webpack/webpack.dev.babel.js --hot",
+    "webpack:prod": "cross-env NODE_ENV=production webpack --env.prod -p --config config/webpack/webpack.prod.babel.js",
     "critical": "critical ./dist/index.html --inline --base ./dist -H index.html > /dev/null",
     "gh-pages": "gh-pages -d dist",
-    "deploy": "run-s clean copy build critical gh-pages",
+    "start": "npm run webpack:dev",
+    "build": "run-s clean copy webpack:prod critical",
+    "deploy": "run-s build gh-pages",
     "precommit": "npm run lint"
   }
 }
