@@ -5,7 +5,7 @@ import App from 'containers/home'
 import template from './template'
 
 export default (locals, callback) => {
-  console.log('--- locals:\n', locals, '\n---')
+  console.log('--- locals:\n', arguments, '\n---')
 
   callback(null, template({
     title: locals.title,
