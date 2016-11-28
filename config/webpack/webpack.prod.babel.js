@@ -12,12 +12,12 @@ const pkg     = require('../../package.json')
 const palette = require('../../src/styles/variables').palette
 
 module.exports = config({
-  postcssOpts: {
-    localIdent: null
-  },
-
   production: true,
   devtool:    'source-map',
+
+  entry: {
+    app: ['./src/static.jsx']
+  },
 
   output: {
     path:          './dist',
@@ -56,13 +56,18 @@ module.exports = config({
       background: palette.primary
     }),
 
-    new StaticSiteGeneratorPlugin('static', paths, {title: pkg.description}),
+    new StaticSiteGeneratorPlugin('app', paths, {title: pkg.description}),
 
     // Listen for updates to resources
     new OfflinePlugin({
-      updateStrategy: 'all',
-      AppCache:       false,
-      ServiceWorker:  {
+      caches: {
+        main:     ['/', '/app.css', '/app.js'],
+        optional: ['icons/*']
+      },
+
+      AppCache: false,
+
+      ServiceWorker: {
         events: true
       }
     })

@@ -4,20 +4,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const appRoot = path.join(__dirname, '../../')
 
-function makeConfig ({
-  preEntries = [],
-  plugins = [],
-  resolve = {},
-  output,
-  devtool,
-  postcssOpts
-}) {
-  const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
+function getCSSConfig (env) {
+  const localIdent  = env === 'production' ? null : '[path]-[local]'
 
   const cssLoaderOpts = {
     modules:        true,
     sourceMap:      true,
-    localIdentName: postcssOpts.localIdent,
+    localIdentName: localIdent,
     importLoaders:  1
   }
 
@@ -45,15 +38,24 @@ function makeConfig ({
     }
   }
 
+  return pcssRules[env]
+}
+
+function makeConfig ({
+  entry = {},
+  plugins = [],
+  resolve = {},
+  output,
+  devtool
+}) {
+  const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
+
+
   return {
     devtool,
+    entry,
     output,
     plugins: [new webpack.NamedModulesPlugin(), ...plugins],
-
-    entry: {
-      app:    [...preEntries, './src/index.jsx'],
-      static: ['./src/static.jsx']
-    },
 
     resolve: Object.assign({}, {
       modules:    ['node_modules', 'src'],
@@ -90,7 +92,7 @@ function makeConfig ({
           test:   /\.gif$/,
           loader: 'url-loader?limit=100000&mimetype=image/gif'
         }
-      ].concat(pcssRules[env])
+      ].concat([getCSSConfig(env)])
     },
 
     devServer: {
