@@ -1,4 +1,4 @@
-const tmpl = ({title, icons, react}) => `
+const tmpl = ({title, icons = '', react = ''}) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>

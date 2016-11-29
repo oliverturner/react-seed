@@ -5,8 +5,6 @@ const OfflinePlugin                 = require('offline-plugin')
 const FaviconsWebpackPlugin         = require('favicons-webpack-plugin')
 const StaticSiteGeneratorPlugin     = require('static-site-generator-webpack-plugin')
 
-const paths = ['/']
-
 const config  = require('./config')
 const pkg     = require('../../package.json')
 const palette = require('../../src/styles/variables').palette
@@ -56,7 +54,7 @@ module.exports = config({
       background: palette.primary
     }),
 
-    new StaticSiteGeneratorPlugin('app', paths, {title: pkg.description}),
+    new StaticSiteGeneratorPlugin('app', ['/'], {title: pkg.description}),
 
     // Listen for updates to resources
     new OfflinePlugin({

@@ -23,21 +23,13 @@ if (typeof document !== 'undefined') {
   renderApp()
 
   if (module.hot) {
-    module.hot.accept('containers/app', renderApp)
+    module.hot.accept('containers/index', renderApp)
   }
 
   if (process.env.NODE_ENV === 'production') {
     const runtime = require('offline-plugin/runtime') // eslint-disable-line
 
     runtime.install({
-      onInstalled: () => {
-        console.log('SW Event:', 'initialised: app is offline-enabled')
-      },
-
-      onUpdating: () => {
-        console.log('SW Event:', 'updating')
-      },
-
       onUpdateReady: () => {
         console.log('SW Event:', 'onUpdateReady')
 

@@ -1,5 +1,5 @@
-const path              = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path       = require('path')
+const HtmlPlugin = require('html-webpack-plugin')
 
 const config = require('./config')
 const pkg    = require('../../package.json')
@@ -18,9 +18,9 @@ const webpackConfig = config({
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
+    new HtmlPlugin({
       title:    pkg.description,
-      template: './config/template.html'
+      template: '_tools/template.html'
     })
   ]
 })
