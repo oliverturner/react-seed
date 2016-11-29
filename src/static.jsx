@@ -3,9 +3,9 @@ import 'styles/base.css'
 
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import App from 'containers/home'
+import App from 'containers'
 
-import template from './template'
+import template from '../config/template'
 
 export default (locals, callback) =>
   Promise.resolve()
@@ -21,4 +21,3 @@ export default (locals, callback) =>
       }))
     })
     .catch((e) => console.log(e))
-

@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 
-import App from 'containers/home'
+import App from 'containers'
 
 const renderApp = () => {
   ReactDOM.render(
@@ -19,7 +19,7 @@ const renderApp = () => {
 renderApp()
 
 if (module.hot) {
-  module.hot.accept('containers/home', renderApp)
+  module.hot.accept('containers/app', renderApp)
 }
 
 if (process.env.NODE_ENV === 'production') {
