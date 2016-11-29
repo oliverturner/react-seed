@@ -16,8 +16,7 @@ module.exports = config({
   devtool:    'source-map',
 
   entry: {
-    app:  ['./src/index.jsx'],
-    page: './src/static.jsx'
+    app: ['./src/index.jsx']
   },
 
   output: {
@@ -57,7 +56,7 @@ module.exports = config({
       background: palette.primary
     }),
 
-    new StaticSiteGeneratorPlugin('page', paths, {title: pkg.description}),
+    new StaticSiteGeneratorPlugin('app', paths, {title: pkg.description}),
 
     // Listen for updates to resources
     new OfflinePlugin({

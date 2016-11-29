@@ -5,10 +5,10 @@ const tmpl = ({title, icons, react}) => `
     <!-- critical -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
     <title>${title}</title>
     <link rel="stylesheet" href="/app.css" >
-   
+
     <!-- apple webapp / chrome pwa -->
     <link rel="manifest" href="/icons/manifest.json">
     ${icons}
