@@ -6,8 +6,8 @@ module.exports = () => ({
       features: {
         customProperties: {
           variables:       props.palette,
-          preserve:        true,
-          appendVariables: true
+          preserve:        'computed',
+          // appendVariables: true
         },
 
         customMedia: {
