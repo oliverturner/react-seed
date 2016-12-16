@@ -2,7 +2,6 @@ const webpack                       = require('webpack')
 const ExtractTextPlugin             = require('extract-text-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const OfflinePlugin                 = require('offline-plugin')
-const FaviconsWebpackPlugin         = require('favicons-webpack-plugin')
 const StaticSiteGeneratorPlugin     = require('static-site-generator-webpack-plugin')
 
 const config  = require('./config')
@@ -47,12 +46,6 @@ module.exports = config({
     }),
 
     new ExtractTextPlugin('[name].css'),
-
-    new FaviconsWebpackPlugin({
-      logo:       './src/assets/images/logo.png',
-      prefix:     'icons/',
-      background: palette.primary
-    }),
 
     new StaticSiteGeneratorPlugin('app', ['/'], {title: pkg.description}),
 

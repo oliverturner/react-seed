@@ -49,13 +49,17 @@ function makeConfig ({
   devtool
 }) {
   const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
-
+  const isProd = env !== 'development'
 
   return {
     devtool,
     entry,
     output,
     plugins: [new webpack.NamedModulesPlugin(), ...plugins],
+
+    performance: {
+      hints: isProd ? 'warning' : false
+    },
 
     resolve: Object.assign({}, {
       modules:    ['node_modules', 'src'],

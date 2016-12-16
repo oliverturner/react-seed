@@ -1,8 +1,8 @@
 import React from 'react'
 import InlineSVG from 'svg-inline-react'
 
-import Masthead from 'components/masthead'
-import icon from 'assets/icons/github.svg'
+import Masthead from '../../components/masthead'
+import icon from '../../assets/icons/github.svg'
 import s from './styles.pcss'
 import {homepage} from '../../../package.json'
 
